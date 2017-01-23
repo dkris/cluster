@@ -1,0 +1,104 @@
+.apps {
+	padding-top: 50px;
+}
+
+.thumbnail {
+	.delete-server {
+		visibility: hidden;
+	  	opacity: 0;
+	  	transition: visibility 0s, opacity 0.5s linear;
+	}
+	transition: background-color 1s;
+	background-color: #787c81;
+}
+
+.thumbnail:hover {
+	.delete-server {
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+.app-info {
+	text-align: center;
+}
+
+.progress {
+	visibility: hidden;
+}
+.progress {
+	.progress-bar {
+	  	transition-duration: 2s;
+	}	
+}
+
+.app-drawer {
+	padding: 10px;
+	margin: 2px;
+	border-radius: 5px;
+	background-color: red;
+}
+
+.add {
+	float: right;
+	margin-left: 15px;
+	margin-top: 5px;
+	display: inline;
+}
+.delete {
+	float: right;
+	margin-left: 5px;
+	margin-top: 5px;
+	display: inline;
+}
+.hadoop {
+	background-color: #f895a8;
+}
+.rails {
+	background-color: #4180dd;
+}
+.chronos {
+	background-color: #9ed9fc;
+}
+.storm {
+	background-color: #b7fbc4;
+}
+.spark {
+	background-color: #d3fb3b;
+}
+.hadoop-shared {
+	background-image: -webkit-linear-gradient(left, #f895a8, #f895a8 50%, transparent 50%, transparent 100%);
+	background-image: -moz-linear-gradient(left, #f895a8, #f895a8 50%, transparent 50%, transparent 100%);
+	background-image: linear-gradient(left, #f895a8, #f895a8 50%, transparent 50%, transparent 100%);
+}
+.rails-shared {
+	background-image: -webkit-linear-gradient(left, #4180dd, #4180dd 50%, transparent 50%, transparent 100%);
+	background-image: -moz-linear-gradient(left, #4180dd, #4180dd 50%, transparent 50%, transparent 100%);
+	background-image: linear-gradient(left, #4180dd, #4180dd 50%, transparent 50%, transparent 100%);
+}
+.chronos-shared {
+	background-image: -webkit-linear-gradient(left, #9ed9fc, #9ed9fc 50%, transparent 50%, transparent 100%);
+	background-image: -moz-linear-gradient(left, #9ed9fc, #9ed9fc 50%, transparent 50%, transparent 100%);
+	background-image: linear-gradient(left, #9ed9fc, #9ed9fc 50%, transparent 50%, transparent 100%);
+}
+.storm-shared {
+	background-image: -webkit-linear-gradient(left, #b7fbc4, #b7fbc4 50%, transparent 50%, transparent 100%);
+	background-image: -moz-linear-gradient(left, #b7fbc4, #b7fbc4 50%, transparent 50%, transparent 100%);
+	background-image: linear-gradient(left, #b7fbc4, #b7fbc4 50%, transparent 50%, transparent 100%);
+}
+.spark-shared {
+	background-image: -webkit-linear-gradient(left, #d3fb3b, #d3fb3b 50%, transparent 50%, transparent 100%);
+	background-image: -moz-linear-gradient(left, #d3fb3b, #d3fb3b 50%, transparent 50%, transparent 100%);
+	background-image: linear-gradient(left, #d3fb3b, #d3fb3b 50%, transparent 50%, transparent 100%);
+}
+.avail-apps {
+	padding-top: 60px;
+}
+
+.add-app, .minus-app {
+	margin-top: 20px;
+}
+
+.action-area {
+	height: 100%;
+}
