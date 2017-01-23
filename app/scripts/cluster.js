@@ -14,9 +14,9 @@ function App(appId, appName) {
   let appId = 0;
   let servers = [];
   let SERVER_STATUS = new Map();
-  const IS_IN_NEW_SERVER_QUEUE = "IS_IN_NEW_SERVER_QUEUE";
-  const IS_IN_AVAIL_SERVER_QUEUE = "IS_IN_AVAIL_SERVER_QUEUE";
-  const IS_IN_LOCKED_SERVER_QUEUE = "IS_IN_LOCKED_SERVER_QUEUE";
+  const IS_IN_NEW_SERVER_QUEUE = 'IS_IN_NEW_SERVER_QUEUE';
+  const IS_IN_AVAIL_SERVER_QUEUE = 'IS_IN_AVAIL_SERVER_QUEUE';
+  const IS_IN_LOCKED_SERVER_QUEUE = 'IS_IN_LOCKED_SERVER_QUEUE';
 
   //* Queue to hold servers that are newly created.
   //* Will contain any new apps that are created
@@ -36,7 +36,7 @@ function App(appId, appName) {
   let Spark_Stack = [];
 
   var purgeServer = (serverId, serverLocation) => {
-    var serverRow = document.getElementById("server-row");
+    var serverRow = document.getElementById('server-row');
     var serverToPurge = document.getElementById(serverId);
     serverRow.removeChild(serverToPurge);
     SERVER_STATUS.delete(serverId);
@@ -56,32 +56,32 @@ function App(appId, appName) {
   function strMapToObj(strMap) {
     let obj = {};
     let servers = {}
-    servers["servers"] = [];
+    servers['servers'] = [];
     strMap.forEach((value, key, map) => {
       let serverInfo = {
-        "servername": key,
-        "apps": value
+        'servername': key,
+        'apps': value
       };
-      servers["servers"].push(serverInfo);
+      servers['servers'].push(serverInfo);
     });
     return servers;
   }
 
-  function addAppToQueue(app) {
+  function addAppToStack(app) {
     switch (app.appName) {
-      case "Hadoop":
+      case 'Hadoop':
         Hadoop_Stack.push(app);
         break;
-      case "Rails":
+      case 'Rails':
         Rails_Stack.push(app);
         break;
-      case "Chronos":
+      case 'Chronos':
         Chronos_Stack.push(app);
         break;
-      case "Spark":
+      case 'Spark':
         Spark_Stack.push(app);
         break;
-      case "Storm":
+      case 'Storm':
         Storm_Stack.push(app);
         break;
     }
@@ -90,19 +90,19 @@ function App(appId, appName) {
   function removeAppFromAppStack(appName) {
     let app;
     switch (appName) {
-      case "Hadoop":
+      case 'Hadoop':
         app = Hadoop_Stack.pop();
         break;
-      case "Rails":
+      case 'Rails':
         app = Rails_Stack.pop();
         break;
-      case "Chronos":
+      case 'Chronos':
         app = Chronos_Stack.pop();
         break;
-      case "Spark":
+      case 'Spark':
         app = Spark_Stack.pop();
         break;
-      case "Storm":
+      case 'Storm':
         app = Storm_Stack.pop();
         break;
     }
@@ -112,10 +112,10 @@ function App(appId, appName) {
   }
 
   this.nextServerId = function() {
-    return "server" + serverId++;
+    return 'server' + serverId++;
   };
   this.nextAppId = function() {
-    return "app" + appId++;
+    return 'app' + appId++;
   };
 
   this.initCluster = function() {
@@ -126,10 +126,10 @@ function App(appId, appName) {
       NEW_SERVERS.enqueue(serverId);
     }
     var servers = strMapToObj(SERVER_STATUS);
-    var serverInfoTemplate = document.getElementById("server-info-template").innerHTML;
+    var serverInfoTemplate = document.getElementById('server-info-template').innerHTML;
     var compiledTemplate = Handlebars.compile(serverInfoTemplate);
     var serverData = compiledTemplate(servers);
-    document.getElementById("server-row").innerHTML = serverData;
+    document.getElementById('server-row').innerHTML = serverData;
   }
   this.addServer = function() {
     let serverId = this.nextServerId();
@@ -137,14 +137,14 @@ function App(appId, appName) {
     SERVER_STATUS.set(serverId, []);
     NEW_SERVERS.enqueue(serverId);
     var servers = {
-      "servername": serverId,
-      "apps": []
+      'servername': serverId,
+      'apps': []
     };
-    var serverInfoTemplate = document.getElementById("new-server-added").innerHTML;
+    var serverInfoTemplate = document.getElementById('new-server-added').innerHTML;
     var compiledTemplate = Handlebars.compile(serverInfoTemplate);
     var serverData = compiledTemplate(servers);
-    document.getElementById("server-row").innerHTML += serverData;
-    document.querySelector("#" + serverId + " .delete-server").addEventListener('click', () => {
+    document.getElementById('server-row').innerHTML += serverData;
+    document.querySelector('#' + serverId + ' .delete-server').addEventListener('click', () => {
       return this.removeServer(serverId)
     }, false);
   };
@@ -167,22 +167,22 @@ function App(appId, appName) {
       SERVER_STATUS.forEach(function(apps, serverId, serverMap) {
         if (serverId === newestServerId) {
           SERVER_STATUS.get(serverId).push(app);
-          $("#" + serverId + ' .thumbnail').addClass(name.toLowerCase());
-          $("#" + serverId + ' .progress .progress-bar').css("width", function() {
-            return $(this).attr("aria-valuenow") + "%";
-          }).css("visibility", "visible");
+          $('#' + serverId + ' .thumbnail').addClass(name.toLowerCase());
+          $('#' + serverId + ' .progress .progress-bar').css('width', function() {
+            return $(this).attr('aria-valuenow') + '%';
+          }).css('visibility', 'visible');
           $('.progress .progress-bar').on('transitionend', function(e) {
-            $("#" + serverId + ' .progress .progress-bar').css("visibility", "hidden");
-            $("#" + serverId + ' .progress .progress-bar').css("width", "0%");
+            $('#' + serverId + ' .progress .progress-bar').css('visibility', 'hidden');
+            $('#' + serverId + ' .progress .progress-bar').css('width', '0%');
           });
-          document.getElementById(serverId + "-app-info").innerHTML = name + " recently added";
+          document.getElementById(serverId + '-app-info').innerHTML = name + ' recently added';
         }
       });
-      addAppToQueue({
-        "appId": appId,
-        "serverlocation": AVAIL_SERVERS,
-        "serverid": newestServerId,
-        "appName": name
+      addAppToStack({
+        'appId': appId,
+        'serverlocation': AVAIL_SERVERS,
+        'serverid': newestServerId,
+        'appName': name
       });
       AVAIL_SERVERS.enqueue(newestServerId);
       return true;
@@ -192,32 +192,30 @@ function App(appId, appName) {
       SERVER_STATUS.forEach(function(apps, serverId, serverMap) {
         if (serverId === newestServerId) {
           SERVER_STATUS.get(serverId).push(app);
-          $("#" + serverId + ' .thumbnail').toggleClass(name.toLowerCase() + "-shared");
-          $("#" + serverId + ' .progress .progress-bar').css("width", function() {
-            return $(this).attr("aria-valuenow") + "%";
-          }).css("visibility", "visible");
+          $('#' + serverId + ' .thumbnail').toggleClass(name.toLowerCase() + '-shared');
+          $('#' + serverId + ' .progress .progress-bar').css('width', function() {
+            return $(this).attr('aria-valuenow') + '%';
+          }).css('visibility', 'visible');
           $('.progress .progress-bar').on('transitionend', function(e) {
-            $("#" + serverId + ' .progress .progress-bar').css("visibility", "hidden");
-            $("#" + serverId + ' .progress .progress-bar').css("width", "0%");
+            $('#' + serverId + ' .progress .progress-bar').css('visibility', 'hidden');
+            $('#' + serverId + ' .progress .progress-bar').css('width', '0%');
           });
-          document.getElementById(serverId + "-app-info").innerHTML = name + " recently added";
+          document.getElementById(serverId + '-app-info').innerHTML = name + ' recently added';
         }
       });
-      addAppToQueue({
-        "appId": appId,
-        "serverlocation": LOCKED_SERVERS,
-        "serverid": newestServerId,
-        "appName": name
+      addAppToStack({
+        'appId': appId,
+        'serverlocation': LOCKED_SERVERS,
+        'serverid': newestServerId,
+        'appName': name
       });
       LOCKED_SERVERS.enqueue(newestServerId);
       return true;
     }
     if (AVAIL_SERVERS.getLength() === 0 && NEW_SERVERS.getLength() === 0 && LOCKED_SERVERS.getLength() !== 0) {
-      console.error("Cant add any more apps. Cluster Capacity reached");
-      delete app;
+      console.error('Cant add any more apps. Cluster Capacity reached');
     } else {
-      console.error("No servers avaiable. Discarding app");
-      delete app;
+      console.error('No servers avaiable. Discarding app');
     }
     return false;
   }
@@ -248,19 +246,19 @@ function App(appId, appName) {
           }
         });
       }
-      if ($("#" + app.serverid + " .thumbnail").hasClass(deletedApp.toLowerCase() + "-shared")) {
-        $("#" + app.serverid + " .thumbnail").removeClass(deletedApp.toLowerCase() + "-shared");
-        $("#" + app.serverid + " .thumbnail").addClass(availApp.toLowerCase());
+      if ($('#' + app.serverid + ' .thumbnail').hasClass(deletedApp.toLowerCase() + '-shared')) {
+        $('#' + app.serverid + ' .thumbnail').removeClass(deletedApp.toLowerCase() + '-shared');
+        $('#' + app.serverid + ' .thumbnail').addClass(availApp.toLowerCase());
       } else {
-        $("#" + app.serverid + " .thumbnail").removeClass(deletedApp.toLowerCase());
+        $('#' + app.serverid + ' .thumbnail').removeClass(deletedApp.toLowerCase());
         if (availApp) {
-          $("#" + app.serverid + " .thumbnail").addClass(availApp.toLowerCase());
+          $('#' + app.serverid + ' .thumbnail').addClass(availApp.toLowerCase());
         }
       }
       if (availApp) {
-        document.querySelector("#" + app.serverid + "-app-info").innerHTML = availApp + " present on server";
+        document.querySelector('#' + app.serverid + '-app-info').innerHTML = availApp + ' present on server';
       } else {
-        document.querySelector("#" + app.serverid + "-app-info").innerHTML = "No apps loaded on server";
+        document.querySelector('#' + app.serverid + '-app-info').innerHTML = 'No apps loaded on server';
       }
     }
   }
@@ -277,13 +275,13 @@ function App(appId, appName) {
   */
   this.removeServer = function(serverId) {
     var serverId = serverId;
-    console.info("Initiating server delete");
+    console.info('Initiating server delete');
     let sid = serverId;
     if (SERVER_STATUS.size === 0) {
-      console.info("No servers present in the cluster")
+      console.info('No servers present in the cluster')
     } else if (SERVER_STATUS.size === 1) {
       SERVER_STATUS.clear();
-      console.info("Server deleted and no servers present on cluster to move servers")
+      console.info('Server deleted and no servers present on cluster to move servers')
     } else {
       SERVER_STATUS.forEach((apps, id, servers) => {
         if (sid === id) {
@@ -293,17 +291,19 @@ function App(appId, appName) {
           } else if (apps.length === 1) {
             purgeServer(sid, IS_IN_AVAIL_SERVER_QUEUE);
             if (this.addApp(apps[0].appName)) {
-              console.info("App migrated successfully");
+              console.info('App migrated successfully');
             } else {
-              console.error("App not migrated");
+              removeAppFromAppStack(apps[0].appName);
+              console.error('App not migrated');
             }
           } else {
             purgeServer(sid, IS_IN_LOCKED_SERVER_QUEUE);
             apps.forEach((app) => {
               if (this.addApp(app.appName)) {
-                console.info("App migrated successfully");
+                console.info('App migrated successfully');
               } else {
-                console.error("App not migrated");
+                removeAppFromAppStack(app.appName);
+                console.error('App not migrated');
               }
             });
           }
