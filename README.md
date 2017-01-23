@@ -5,4 +5,11 @@
 3. jQuery - Well, because jQuery. No seriously, makes selecting items of the DOM much easier. Although there are new JavaScript APIs that can do what jQuery does.
 4. bower - To handle dependency on the client side.
 5. Gulp - Makes it easier to create and execute tasks
-6. Yeoman - to generate a simple webapp boiler plate. 
+6. Yeoman - to generate a simple webapp boiler plate.
+
+## Runnin the app
+```sh
+bower install
+npm install
+gulp serve
+```
